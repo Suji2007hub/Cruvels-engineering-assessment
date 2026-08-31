@@ -9,7 +9,7 @@ import {
   BarChart3,
   Bell,
 } from 'lucide-react';
-import { User } from '../types.js';
+import { User } from '../../types';
 
 export type NavTab =
   | 'dashboard'

@@ -18,8 +18,8 @@ import {
   ShieldCheck,
   AlertTriangle,
 } from 'lucide-react';
-import { ClassSection, AttendanceStatus } from '../types.js';
-import { api } from '../services/api.js';
+import { ClassSection, AttendanceStatus } from '../types';
+import { api } from '../services/api';
 
 interface AttendanceViewProps {
   classes: ClassSection[];
@@ -162,13 +162,12 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
   };
 
   // Stats calculation
-  const total = attendanceData.length;
-  const presentCount = attendanceData.filter((a) => a.status === 'Present').length;
-  const lateCount = attendanceData.filter((a) => a.status === 'Late').length;
-  const absentCount = attendanceData.filter((a) => a.status === 'Absent').length;
-  const excusedCount = attendanceData.filter((a) => a.status === 'Excused').length;
-  const attendanceRate =
-    total > 0 ? Math.round(((presentCount + lateCount * 0.8 + excusedCount) / total) * 100) : 0;
+    const total = attendanceData.length;
+    const presentCount = attendanceData.filter((a) => a.status === 'present').length;
+    const lateCount = attendanceData.filter((a) => a.status === 'late').length;
+    const absentCount = attendanceData.filter((a) => a.status === 'absent').length;
+    const attendanceRate =
+      total > 0 ? Math.round(((presentCount + lateCount * 0.8) / total) * 100) : 0;
 
   const currentClass = classes.find((c) => c.id === selectedSectionId);
 
@@ -355,14 +354,14 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
             <div className="flex space-x-2">
               <button
                 type="button"
-                onClick={() => handleMarkAll('Present')}
+                onClick={() => handleMarkAll('present')}
                 className="px-3 py-2 text-xs font-bold rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 transition-colors flex-1"
               >
                 All Present
               </button>
               <button
                 type="button"
-                onClick={() => handleMarkAll('Absent')}
+                onClick={() => handleMarkAll('absent')}
                 className="px-3 py-2 text-xs font-bold rounded-xl bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 transition-colors flex-1"
               >
                 Clear/Reset
@@ -388,7 +387,7 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
               Absent: {absentCount}
             </span>
             <span className="font-semibold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-100">
-              Excused: {excusedCount}
+
             </span>
           </div>
 
@@ -460,7 +459,7 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
                     <tr
                       key={record.studentId}
                       className={`hover:bg-slate-50/80 transition-colors ${
-                        record.status === 'Absent' ? 'bg-rose-50/30' : ''
+                        record.status === 'absent' ? 'bg-rose-50/30' : ''
                       }`}
                     >
                       {/* Roll */}
@@ -482,9 +481,9 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
                           {/* Present */}
                           <button
                             type="button"
-                            onClick={() => handleStatusChange(record.studentId, 'Present')}
+                            onClick={() => handleStatusChange(record.studentId, 'present')}
                             className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                              record.status === 'Present'
+                              record.status === 'present'
                                 ? 'bg-emerald-600 text-white shadow-xs scale-105'
                                 : 'bg-slate-100 text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'
                             }`}
@@ -495,9 +494,9 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
                           {/* Late */}
                           <button
                             type="button"
-                            onClick={() => handleStatusChange(record.studentId, 'Late')}
+                            onClick={() => handleStatusChange(record.studentId, 'late')}
                             className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                              record.status === 'Late'
+                              record.status === 'late'
                                 ? 'bg-amber-500 text-white shadow-xs scale-105'
                                 : 'bg-slate-100 text-slate-600 hover:bg-amber-50 hover:text-amber-700'
                             }`}
@@ -508,9 +507,9 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
                           {/* Absent */}
                           <button
                             type="button"
-                            onClick={() => handleStatusChange(record.studentId, 'Absent')}
+                            onClick={() => handleStatusChange(record.studentId, 'absent')}
                             className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                              record.status === 'Absent'
+                              record.status === 'absent'
                                 ? 'bg-rose-600 text-white shadow-xs scale-105'
                                 : 'bg-slate-100 text-slate-600 hover:bg-rose-50 hover:text-rose-700'
                             }`}
@@ -518,18 +517,7 @@ export const AttendanceView: React.FC<AttendanceViewProps> = ({
                             Absent
                           </button>
 
-                          {/* Excused */}
-                          <button
-                            type="button"
-                            onClick={() => handleStatusChange(record.studentId, 'Excused')}
-                            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                              record.status === 'Excused'
-                                ? 'bg-blue-600 text-white shadow-xs scale-105'
-                                : 'bg-slate-100 text-slate-600 hover:bg-blue-50 hover:text-blue-700'
-                            }`}
-                          >
-                            Excused
-                          </button>
+
                         </div>
                       </td>
 

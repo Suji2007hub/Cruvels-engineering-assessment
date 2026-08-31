@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
-import { Student, ClassSection } from '../../types.js';
+import { Student, ClassSection } from '../../types';
 
 interface StudentFormModalProps {
   isOpen: boolean;

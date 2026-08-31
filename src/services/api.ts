@@ -6,7 +6,7 @@ import {
   User,
   SystemStats,
   TestResultItem,
-} from '../types.js';
+} from '../types';
 
 const API_BASE = '/api';
 

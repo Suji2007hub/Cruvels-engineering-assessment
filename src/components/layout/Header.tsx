@@ -3,7 +3,7 @@ import {
   School,
   LogOut,
 } from 'lucide-react';
-import { User as UserType } from '../types.js';
+import { User as UserType } from '../../types';
 
 interface HeaderProps {
   currentUser: UserType;

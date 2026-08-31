@@ -16,8 +16,8 @@ import {
   Calendar,
   ShieldCheck,
 } from 'lucide-react';
-import { Student, ClassSection, Teacher, User as UserType } from '../types.js';
-import { api } from '../services/api.js';
+import { Student, ClassSection, Teacher, User as UserType } from '../types';
+import { api } from '../services/api';
 
 interface StudentPortalViewProps {
   currentUser: UserType;

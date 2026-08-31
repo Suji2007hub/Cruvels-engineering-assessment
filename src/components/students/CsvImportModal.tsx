@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { X, FileSpreadsheet, Upload, Download, CheckCircle2, XCircle } from 'lucide-react';
-import { ClassSection } from '../../types.js';
-import { api } from '../../services/api.js';
+import { ClassSection } from '../../types';
+import { api } from '../../services/api';
 
 interface CsvImportModalProps {
   isOpen: boolean;

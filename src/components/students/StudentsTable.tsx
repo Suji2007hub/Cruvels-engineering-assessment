@@ -1,6 +1,6 @@
 import React from 'react';
 import { Eye, Edit2, Trash2, Power } from 'lucide-react';
-import { Student, ClassSection } from '../../types.js';
+import { Student, ClassSection } from '../../types';
 
 interface StudentsTableProps {
   students: Student[];

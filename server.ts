@@ -5,9 +5,9 @@ import { createServer as createViteServer } from 'vite';
 import cookieParser from 'cookie-parser';
 import { apiRouter } from './server/routes.js';
 
-// Handle both ESM (development) and CJS (production) environments
-const __filename = typeof __filename !== 'undefined' ? __filename : fileURLToPath(import.meta.url);
-const __dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(__filename);
+// Handle ESM environment for development
+const currentFilename = fileURLToPath(import.meta.url);
+const currentDirname = path.dirname(currentFilename);
 
 async function startServer() {
   const app = express();

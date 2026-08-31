@@ -1,6 +1,6 @@
 import React from 'react';
 import { Search, Filter } from 'lucide-react';
-import { ClassSection } from '../../types.js';
+import { ClassSection } from '../../types';
 
 interface StudentFiltersProps {
   search: string;

@@ -17,7 +17,7 @@ import {
   GraduationCap,
   School,
 } from 'lucide-react';
-import { Teacher, ClassSection } from '../types.js';
+import { Teacher, ClassSection } from '../types';
 
 interface TeachersViewProps {
   teachers: Teacher[];
@@ -94,7 +94,7 @@ export const TeachersView: React.FC<TeachersViewProps> = ({
   const handleOpenEdit = (teacher: Teacher) => {
     setEditingTeacher(teacher);
     setFormData({ ...teacher });
-    setSubjectsInput(teacher.subjects?.join(', ') || '');
+    setSubjectsInput(teacher.subject || '');
     setFormError('');
   };
 

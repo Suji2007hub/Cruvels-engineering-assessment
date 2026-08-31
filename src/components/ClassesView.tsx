@@ -13,7 +13,7 @@ import {
   Clock,
   BookOpen,
 } from 'lucide-react';
-import { ClassSection, Teacher, Student } from '../types.js';
+import { ClassSection, Teacher, Student } from '../types';
 
 interface ClassesViewProps {
   classes: ClassSection[];

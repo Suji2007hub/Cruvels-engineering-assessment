@@ -13,8 +13,8 @@ import {
   AlertCircle,
   PlusCircle,
 } from 'lucide-react';
-import { NavTab } from '../layout/Sidebar.js';
-import { Student } from '../types.js';
+import { NavTab } from '../layout/Sidebar';
+import { Student } from '../../types';
 
 interface DashboardViewProps {
   stats: any;

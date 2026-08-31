@@ -11,7 +11,7 @@ import {
   School,
   FileSpreadsheet,
 } from 'lucide-react';
-import { Student, ClassSection } from '../types.js';
+import { Student, ClassSection } from '../types';
 
 interface ReportsViewProps {
   stats: any;

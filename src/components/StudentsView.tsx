@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Plus, Download, FileSpreadsheet } from 'lucide-react';
-import { Student, ClassSection } from '../types.js';
+import { Student, ClassSection } from '../types';
 import { StudentFilters } from './students/StudentFilters.js';
 import { StudentsTable } from './students/StudentsTable.js';
 import { StudentFormModal } from './students/StudentFormModal.js';
@@ -69,9 +69,9 @@ export const StudentsView: React.FC<StudentsViewProps> = ({
   };
 
   const handleToggleStatus = async (student: Student) => {
-    const nextStatus = student.status === 'Active' ? 'Inactive' : 'Active';
+    const nextStatus = student.is_active === 1 ? 0 : 1;
     try {
-      await onUpdateStudent(student.id, { status: nextStatus });
+      await onUpdateStudent(student.id, { is_active: nextStatus });
       onRefresh();
     } catch (err) {
       console.error('Failed to toggle student status:', err);

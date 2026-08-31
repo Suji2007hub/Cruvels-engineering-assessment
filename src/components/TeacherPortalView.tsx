@@ -11,7 +11,7 @@ import {
   Calendar,
   ArrowRight,
 } from 'lucide-react';
-import { Teacher, ClassSection, Student, User } from '../types.js';
+import { Teacher, ClassSection, Student, User } from '../types';
 
 interface TeacherPortalViewProps {
   currentUser: User;

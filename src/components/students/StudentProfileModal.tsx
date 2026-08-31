@@ -1,6 +1,6 @@
 import React from 'react';
 import { X, Phone, Mail, Calendar, User, GraduationCap } from 'lucide-react';
-import { Student, ClassSection } from '../../types.js';
+import { Student, ClassSection } from '../../types';
 
 interface StudentProfileModalProps {
   student: Student | null;

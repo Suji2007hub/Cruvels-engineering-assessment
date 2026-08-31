@@ -361,7 +361,7 @@ export class SchoolDatabase {
 
   public getStudentAttendanceHistory(studentId: number): Attendance[] {
     const rows = this.db.prepare('SELECT * FROM attendance WHERE student_id = ? ORDER BY date DESC').all(studentId) as any[];
-    return rows as Attendance;
+    return rows as Attendance[];
   }
 
   // --- Dashboard stats ---
