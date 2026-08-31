@@ -106,11 +106,11 @@ const LoginPage: React.FC<{ onLogin: (email: string, password: string) => Promis
         
         <div className="mt-6 pt-6 border-t border-slate-200">
           <p className="text-xs text-slate-500 text-center">
-            Demo credentials: principal@school.edu / admin123 (admin)
+            Demo credentials: admin@school.test / Admin@123 (admin)
             <br />
-            robert.vance@school.edu / teacher123 (teacher)
+            teacher1@school.test / Teacher@123 (teacher)
             <br />
-            alexander.hayes@student.edu / student123 (student)
+            student1@school.test / Student@123 (student)
           </p>
         </div>
       </div>
