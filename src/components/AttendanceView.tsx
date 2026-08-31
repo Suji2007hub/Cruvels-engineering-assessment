@@ -9,7 +9,6 @@ import {
   Save,
   Check,
   RotateCcw,
-  Sparkles,
   Users,
   Search,
   Lock,

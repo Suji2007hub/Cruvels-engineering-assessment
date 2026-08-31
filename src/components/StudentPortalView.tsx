@@ -14,7 +14,6 @@ import {
   FileText,
   Heart,
   Calendar,
-  Sparkles,
   ShieldCheck,
 } from 'lucide-react';
 import { Student, ClassSection, Teacher, User as UserType } from '../types.js';

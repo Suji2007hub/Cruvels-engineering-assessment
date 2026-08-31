@@ -9,7 +9,6 @@ import {
   CheckCircle,
   Eye,
   Calendar,
-  Sparkles,
   ArrowRight,
 } from 'lucide-react';
 import { Teacher, ClassSection, Student, User } from '../types.js';

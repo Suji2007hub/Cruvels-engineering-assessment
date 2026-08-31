@@ -8,7 +8,6 @@ import {
   BookOpenCheck,
   BarChart3,
   Bell,
-  Sparkles,
 } from 'lucide-react';
 import { User } from '../types.js';
 

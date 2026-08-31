@@ -269,13 +269,6 @@ apiRouter.post('/classes-legacy', (req: Request, res: Response) => {
       section,
       classTeacherId ? parseInt(classTeacherId) : undefined
     );
-      name,
-      roomNumber: roomNumber || 'Room 101',
-      capacity: Number(capacity) || 30,
-      classTeacherId,
-      subjectTeacherMap: subjectTeacherMap || {},
-      schedule: schedule || [],
-    });
     res.status(201).json({ success: true, data: newClass });
   } catch (error: any) {
     res.status(500).json({ success: false, error: error.message });

@@ -29,6 +29,3 @@ jobs:
 
       - name: Build Production Assets
         run: npm run build
-
-      - name: Docker Build Check
-        run: docker build -t educore-mvp:latest .

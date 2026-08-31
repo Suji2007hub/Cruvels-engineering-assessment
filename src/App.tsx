@@ -296,7 +296,7 @@ export default function App() {
           activeTab={activeTab}
           onTabChange={setActiveTab}
           currentUser={currentUser}
-          criticalCount={stats?.criticalAttendanceCount || 1}
+          criticalCount={stats?.criticalAttendanceCount || 0}
         />
 
         {/* View Content Area */}
