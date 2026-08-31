@@ -172,47 +172,45 @@ apiRouter.get('/teachers/:id', (req: Request, res: Response) => {
   res.json({ success: true, data: { ...teacher, assignedClassDetails: assignedClasses } });
 });
 
-// Unused teacher CRUD routes (legacy stubs - commented out to eliminate TypeScript errors)
-// apiRouter.post('/teachers', (req: Request, res: Response) => {
-//   try {
-//     const { name, email, phone, qualification, department, subjects, assignedClassIds, status } = req.body;
-//     if (!name || !email || !department) {
-//       return res.status(400).json({ success: false, error: 'Name, email, and department are required' });
-//     }
-//     const newTeacher = db.createTeacher({
-//       name,
-//       email,
-//       phone: phone || '+1 (555) 000-0000',
-//       qualification: qualification || 'B.Ed / M.A.',
-//       department,
-//       subjects: Array.isArray(subjects) ? subjects : subjects ? [subjects] : ['General Studies'],
-//       assignedClassIds: Array.isArray(assignedClassIds) ? assignedClassIds : [],
-//       status: status || 'Active',
-//       joinDate: new Date().toISOString().split('T')[0],
-//       avatar: req.body.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
-//     });
-//     res.status(201).json({ success: true, data: newTeacher });
-//   } catch (error: any) {
-//     res.status(500).json({ success: false, error: error.message });
-//   }
-// });
+// Teacher CRUD routes
+apiRouter.post('/teachers', requireRole(['admin']), async (req: Request, res: Response) => {
+  try {
+    const { name, email, phone, subject, password } = req.body;
+    if (!name || !email) {
+      return res.status(400).json({ success: false, error: 'Name and email are required' });
+    }
 
-// apiRouter.put('/teachers/:id', (req: Request, res: Response) => {
-//   try {
-//     const updated = db.updateTeacher(req.params.id, req.body);
-//     res.json({ success: true, data: updated });
-//   } catch (error: any) {
-//     res.status(error.message.includes('not found') ? 404 : 500).json({ success: false, error: error.message });
-//   }
-// });
+    // Hash password for the new user
+    const passwordHash = await bcrypt.hash(password || 'Teacher@123', SALT_ROUNDS);
+    
+    // Create user account first
+    const user = db.createUser(email, passwordHash, 'teacher');
+    
+    // Then create teacher record
+    const newTeacher = db.createTeacher(name, user.id, phone, subject);
+    
+    res.status(201).json({ success: true, data: newTeacher });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
 
-// apiRouter.delete('/teachers/:id', (req: Request, res: Response) => {
-//   const success = db.deleteTeacher(req.params.id);
-//   if (!success) {
-//     return res.status(404).json({ success: false, error: 'Teacher not found' });
-//   }
-//   res.json({ success: true, message: 'Teacher deleted successfully' });
-// });
+apiRouter.put('/teachers/:id', requireRole(['admin']), (req: Request, res: Response) => {
+  try {
+    const updated = db.updateTeacher(parseInt(req.params.id), req.body);
+    res.json({ success: true, data: updated });
+  } catch (error: any) {
+    res.status(error.message.includes('not found') ? 404 : 500).json({ success: false, error: error.message });
+  }
+});
+
+apiRouter.delete('/teachers/:id', requireRole(['admin']), (req: Request, res: Response) => {
+  const success = db.deleteTeacher(parseInt(req.params.id));
+  if (!success) {
+    return res.status(404).json({ success: false, error: 'Teacher not found' });
+  }
+  res.json({ success: true, message: 'Teacher deactivated successfully' });
+});
 
 // --- Classes & Sections CRUD ---
 apiRouter.get('/classes', (_req: Request, res: Response) => {

@@ -384,6 +384,68 @@ export class SchoolDatabase {
     };
   }
 
+  // --- Teacher methods (additional CRUD) ---
+  public createTeacher(name: string, userId: number, phone?: string, subject?: string): Teacher {
+    const result = this.db.prepare(`
+      INSERT INTO teachers (user_id, name, phone, subject, is_active)
+      VALUES (?, ?, ?, ?, ?)
+    `).run(userId, name, phone || null, subject || null, 1);
+    
+    return this.getTeacherById(result.lastInsertRowid as number)!;
+  }
+
+  public updateTeacher(id: number, data: Partial<Teacher>): Teacher {
+    const teacher = this.getTeacherById(id);
+    if (!teacher) throw new Error('Teacher not found');
+
+    const updateFields: string[] = [];
+    const updateValues: any[] = [];
+    
+    if (data.name) {
+      updateFields.push('name = ?');
+      updateValues.push(data.name);
+    }
+    if (data.phone) {
+      updateFields.push('phone = ?');
+      updateValues.push(data.phone);
+    }
+    if (data.subject) {
+      updateFields.push('subject = ?');
+      updateValues.push(data.subject);
+    }
+    if (data.is_active !== undefined) {
+      updateFields.push('is_active = ?');
+      updateValues.push(data.is_active);
+    }
+    
+    if (updateFields.length > 0) {
+      this.db.prepare(`
+        UPDATE teachers SET ${updateFields.join(', ')} WHERE id = ?
+      `).run(...updateValues, id);
+    }
+    
+    return this.getTeacherById(id)!;
+  }
+
+  public deleteTeacher(id: number): boolean {
+    // Soft delete by setting is_active to 0 instead of hard delete
+    const teacher = this.getTeacherById(id);
+    if (!teacher) return false;
+    
+    this.db.prepare('UPDATE teachers SET is_active = 0 WHERE id = ?').run(id);
+    return true;
+  }
+
+  // --- User creation for teachers/students ---
+  public createUser(email: string, passwordHash: string, role: 'admin' | 'teacher' | 'student'): User {
+    const result = this.db.prepare(`
+      INSERT INTO users (email, password_hash, role)
+      VALUES (?, ?, ?)
+    `).run(email, passwordHash, role);
+    
+    return this.getUserById(result.lastInsertRowid as number)!;
+  }
+
   // Close database connection
   public close() {
     this.db.close();

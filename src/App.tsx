@@ -140,9 +140,15 @@ export default function App() {
       const userRes = await api.getCurrentUser();
       if (userRes.success) {
         setCurrentUser(userRes.user);
+        // Load all data if user is already logged in
+        await loadAllData();
+      } else {
+        // If no user is logged in, we still need to stop loading
+        setLoading(false);
       }
     } catch (error) {
       console.error('Auth check failed:', error);
+      setLoading(false);
     } finally {
       setIsAuthLoading(false);
     }
